@@ -4,27 +4,6 @@ using System.Reflection;
 
 namespace cli
 {
-    [CliCommand("buy")]
-    [CliCommand("b")]
-    public class BuyCommand : CommandBase
-    {
-        [CliOption("-n")]
-        [CliOption("-name")]
-        public string Name { get; set; }
-    }
-
-    [CliCommand("sell")]
-    [CliCommand("s")]
-    [CliCommand("sl")]
-    public class SellCommand : CommandBase
-    {
-        [CliOption("-n")]
-        [CliOption("-N")]
-        [CliOption("-name")]
-        [CliOption("--name")]
-        public string Name { get; set; }
-    }
-
     public class CommandBase
     {
     }

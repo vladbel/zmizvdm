@@ -13,13 +13,14 @@ namespace UnitTests_Cli
 
 
         [Test]
-        public void BuyCommand_Name_Options()
+        public void BuyCommand_Options()
         {
             var buyCommand = new BuyCommand();
             var buyOptions = buyCommand.GetCliOptions();
 
-            Assert.IsTrue(buyOptions.ContainsKey("-n"));
-            Assert.IsTrue(buyOptions.ContainsKey("-name"));
+            Assert.IsTrue(buyOptions.ContainsKey("-q"));
+            Assert.IsTrue(buyOptions.ContainsKey("-p"));
+            Assert.IsTrue(buyOptions.ContainsKey("-t"));
         }
 
         [Test]
@@ -33,14 +34,14 @@ namespace UnitTests_Cli
         }
 
         [Test]
-        public void SellCommand_Name_Options()
+        public void SellCommand_Options()
         {
-            var sellCommand = new SellCommand();
-            var options = sellCommand.GetCliOptions();
+            var command = new SellCommand();
+            var options = command.GetCliOptions();
 
-            Assert.IsTrue(options.ContainsKey("-n"));
-            Assert.IsTrue(options.ContainsKey("-name"));
-            Assert.IsTrue(options.ContainsKey("--name"));
+            Assert.IsTrue(options.ContainsKey("-q"));
+            Assert.IsTrue(options.ContainsKey("-p"));
+            Assert.IsTrue(options.ContainsKey("-t"));
         }
 
         [Test]
