@@ -74,5 +74,17 @@ namespace cli
             }
             return cliCommands;
         }
+
+        public static bool Match ( this CommandBase command, Command parsedCommand)
+
+        {
+            var cliCommandAttributes = command.GetCliCommands();
+
+            if (!cliCommandAttributes.Contains(parsedCommand.Name))
+            {
+                return false;
+            }
+;            return true;
+        }
     }
 }
