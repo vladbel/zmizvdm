@@ -15,8 +15,7 @@ namespace UnitTests_Cli
         [Test]
         public void BuyCommand_Options()
         {
-            var buyCommand = new BuyCommand();
-            var buyOptions = buyCommand.GetCliOptions();
+            var buyOptions = CommandBase.GetCliOptions(typeof(BuyCommand));
 
             Assert.IsTrue(buyOptions.ContainsKey("-q"));
             Assert.IsTrue(buyOptions.ContainsKey("-p"));
@@ -26,8 +25,8 @@ namespace UnitTests_Cli
         [Test]
         public void BuyCommand_CliCommands()
         {
-            var command = new BuyCommand();
-            var commands = command.GetCliCommands();
+
+            var commands = CommandBase.GetCliCommands(typeof(BuyCommand));
 
             Assert.IsTrue(commands.Contains("buy"));
             Assert.IsTrue(commands.Contains("b"));
@@ -36,8 +35,7 @@ namespace UnitTests_Cli
         [Test]
         public void SellCommand_Options()
         {
-            var command = new SellCommand();
-            var options = command.GetCliOptions();
+            var options = CommandBase.GetCliOptions(typeof(SellCommand));
 
             Assert.IsTrue(options.ContainsKey("-q"));
             Assert.IsTrue(options.ContainsKey("-p"));
@@ -47,8 +45,7 @@ namespace UnitTests_Cli
         [Test]
         public void SellCommand_CliCommands()
         {
-            var command = new SellCommand();
-            var commands = command.GetCliCommands();
+            var commands = CommandBase.GetCliCommands(typeof(SellCommand));
 
             Assert.IsTrue(commands.Contains("s"));
             Assert.IsTrue(commands.Contains("sell"));

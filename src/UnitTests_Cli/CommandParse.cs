@@ -3,6 +3,7 @@ using cli;
 
 namespace UnitTests_Cli
 {
+    [TestFixture]
     public class CommandParse
 
     {

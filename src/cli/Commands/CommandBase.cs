@@ -6,6 +6,60 @@ namespace cli
 {
     public class CommandBase
     {
+        public static Dictionary<string, string> GetCliOptions(Type commandType)
+        {
+            Dictionary<string, string> _dict = new Dictionary<string, string>();
+
+            PropertyInfo[] props = commandType.GetProperties();
+            foreach (PropertyInfo prop in props)
+            {
+                object[] attrs = prop.GetCustomAttributes(true);
+                foreach (object attr in attrs)
+                {
+                    CliOptionAttribute optionAttribute = attr as CliOptionAttribute;
+                    if (optionAttribute != null)
+                    {
+                        string propName = prop.Name;
+                        string option = optionAttribute.Option;
+
+                        _dict.Add(option, propName);
+                    }
+                }
+            }
+
+            return _dict;
+        }
+
+        public static List<string> GetCliCommands(Type commandType)
+        {
+            List<string> cliCommands = new List<string>();
+
+
+            object[] attrs = commandType.GetCustomAttributes(true);
+            foreach (object attr in attrs)
+            {
+                CliCommandAttribute optionAttribute = attr as CliCommandAttribute;
+                if (optionAttribute != null)
+                {
+                    string option = optionAttribute.Option;
+
+                    cliCommands.Add(option);
+                }
+            }
+            return cliCommands;
+        }
+
+        public static bool Match(Type commandType, Command parsedCommand)
+
+        {
+            var cliCommandAttributes = GetCliCommands(commandType);
+
+            if (!cliCommandAttributes.Contains(parsedCommand.Name))
+            {
+                return false;
+            }
+; return true;
+        }
     }
 
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = true)]
@@ -28,63 +82,4 @@ namespace cli
         public string Option { get; set; }
     }
 
-    public static class CliCommandExtention
-    {
-        public static Dictionary<string, string> GetCliOptions(this CommandBase command)
-        {
-            var t = command.GetType();
-            Dictionary<string, string> _dict = new Dictionary<string, string>();
-
-            PropertyInfo[] props = t.GetProperties();
-            foreach (PropertyInfo prop in props)
-            {
-                object[] attrs = prop.GetCustomAttributes(true);
-                foreach (object attr in attrs)
-                {
-                    CliOptionAttribute optionAttribute = attr as CliOptionAttribute;
-                    if (optionAttribute != null)
-                    {
-                        string propName = prop.Name;
-                        string option = optionAttribute.Option;
-
-                        _dict.Add(option, propName);
-                    }
-                }
-            }
-
-            return _dict;
-        }
-
-        public static List<string> GetCliCommands(this CommandBase command)
-        {
-            var t = command.GetType();
-            List<string> cliCommands = new List<string>();
-
-
-            object[] attrs = t.GetCustomAttributes(true);
-            foreach (object attr in attrs)
-            {
-                CliCommandAttribute optionAttribute = attr as CliCommandAttribute;
-                if (optionAttribute != null)
-                {
-                    string option = optionAttribute.Option;
-
-                    cliCommands.Add(option);
-                }
-            }
-            return cliCommands;
-        }
-
-        public static bool Match ( this CommandBase command, Command parsedCommand)
-
-        {
-            var cliCommandAttributes = command.GetCliCommands();
-
-            if (!cliCommandAttributes.Contains(parsedCommand.Name))
-            {
-                return false;
-            }
-;            return true;
-        }
-    }
 }
