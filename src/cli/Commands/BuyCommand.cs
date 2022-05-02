@@ -6,7 +6,7 @@ namespace cli
 {
     [CliCommand("b")]
     [CliCommand("buy")]
-    public class BuyCommand : TransactionCommandBase
+    public class BuyCommand : TransactionCommandBase<BuyCommand>
     {
     }
 
