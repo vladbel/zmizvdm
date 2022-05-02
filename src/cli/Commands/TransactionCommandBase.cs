@@ -4,7 +4,7 @@ using System.Text;
 
 namespace cli
 {
-    public class TransactionCommandBase : CommandBase
+    public class TransactionCommandBase<T> : CommandBase<T>
     {
         [CliOption("-t")]
         [CliOption("-ticker")]

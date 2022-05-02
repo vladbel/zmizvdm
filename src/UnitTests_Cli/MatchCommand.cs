@@ -7,10 +7,11 @@ namespace UnitTests_Cli
     public class MatchCommand
     {
         [TestCase("buy")]
+        [TestCase("b")]
         public void BuyCommand_Match( string commandText)
         {
             var command = new Command(commandText);
-            var result = CommandBase.Match(typeof(BuyCommand), command);
+            var result = CommandBase<BuyCommand>.Match( command);
 
             Assert.IsTrue(result);
         }
@@ -19,7 +20,7 @@ namespace UnitTests_Cli
         public void BuyCommand_Do_Not_Match(string commandText)
         {
             var command = new Command(commandText);
-            var result = CommandBase.Match(typeof(BuyCommand), command);
+            var result = CommandBase< BuyCommand>.Match(command);
 
             Assert.IsFalse(result);
         }

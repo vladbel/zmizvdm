@@ -4,10 +4,11 @@ using System.Reflection;
 
 namespace cli
 {
-    public class CommandBase
+    public class CommandBase<T>
     {
-        public static Dictionary<string, string> GetCliOptions(Type commandType)
+        public static Dictionary<string, string> GetCliOptions()
         {
+            Type commandType = typeof(T);
             Dictionary<string, string> _dict = new Dictionary<string, string>();
 
             PropertyInfo[] props = commandType.GetProperties();
@@ -30,8 +31,9 @@ namespace cli
             return _dict;
         }
 
-        public static List<string> GetCliCommands(Type commandType)
+        public static List<string> GetCliCommands()
         {
+            Type commandType = typeof(T);
             List<string> cliCommands = new List<string>();
 
 
@@ -49,10 +51,11 @@ namespace cli
             return cliCommands;
         }
 
-        public static bool Match(Type commandType, Command parsedCommand)
+        public static bool Match( Command parsedCommand)
 
         {
-            var cliCommandAttributes = GetCliCommands(commandType);
+            Type commandType = typeof(T);
+            var cliCommandAttributes = GetCliCommands();
 
             if (!cliCommandAttributes.Contains(parsedCommand.Name))
             {
