@@ -33,6 +33,7 @@ namespace UnitTests_Core
             var record = " 09/06/2022, YOU BOUGHT VANGUARD INDEX FUNDS S&P 500 ETF USD (VOO) (Cash), VOO, VANGUARD INDEX FUNDS S&P 500 ETF USD,Cash,1,357.99,,,,-357.99,09/08/2022";
             var transaction = parser.Parse(record);
             Assert.IsTrue(transaction.Ticker == "VOO");
+            Assert.IsTrue(transaction.DateTime.Year == 2022);
         }
     }
 }
